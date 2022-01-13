@@ -1,4 +1,4 @@
-name: reviewdog
+name: reviewdog-telegram-bot
 
 on:
   pull_request:
@@ -14,11 +14,11 @@ jobs:
         uses: actions/checkout@master
         with:
           fetch-depth: 1
-      - name: Runner Repository Downloads
+      - name: Setup Reviewdog
         uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
-      - name: Run reviewdog
+      - name: Run Reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew detekt && cat build/reports/detekt/detekt.xml | reviewdog -f=checkstyle -name="linter" -reporter="github-pr-check" -level="error"
