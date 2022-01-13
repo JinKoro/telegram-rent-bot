@@ -1,0 +1,27 @@
+name: build-telegram-bot
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - main
+    paths-ignore:
+      - '**.md'
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: A
+        uses: actions/checkout@v2
+      - name: Set Up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '15'
+      - name: Build Application
+        run: ./gradlew --no-daemon
+        classes
+        process
+        processResources
+        compileKotlin
+        compileJava
