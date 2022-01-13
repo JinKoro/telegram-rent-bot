@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>UnusedPrivateMember:Onliner.kt$Onliner.OnlinerApartment$private val id: String</ID>
+    <ID>UnusedPrivateMember:Realt.kt$Realt.Data.RealtApartment$@SerialName("area_total") private val area: Double</ID>
+    <ID>UnusedPrivateMember:Realt.kt$Realt.Data.RealtApartment$private val district: String</ID>
+  </CurrentIssues>
+</SmellBaseline>
