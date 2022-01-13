@@ -10,9 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: reviewdog/action-setup@v1
+      - name: Runner Repository Downloads
+        uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Run reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
