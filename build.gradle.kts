@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import io.gitlab.arturbosch.detekt.Detekt as Detekt
 
 plugins {
     kotlin("jvm") version "1.6.10"
@@ -45,6 +46,15 @@ detekt {
     allRules = false
     config = files("detekt.yml")
     buildUponDefaultConfig = true
+}
+
+tasks.withType<Detekt>().configureEach {
+    reports {
+        xml.required.set(true)
+        html.required.set(false)
+        txt.required.set(false)
+        sarif.required.set(false)
+    }
 }
 
 tasks.withType<DependencyUpdatesTask> {
