@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clone Repository
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
       - name: Runner Repository Downloads
         uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
       - name: Run reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
