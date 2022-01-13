@@ -19,9 +19,4 @@ jobs:
         with:
           java-version: '15'
       - name: Build Application
-        run: ./gradlew --no-daemon
-        classes
-        process
-        processResources
-        compileKotlin
-        compileJava
+        run: ./gradlew --no-daemon classes process processResources compileKotlin compileJava
