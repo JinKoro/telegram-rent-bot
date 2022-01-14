@@ -1,4 +1,4 @@
-# Rent Telegram Bot
+# Telegram Rent Bot
 
 ## Configuration
 
@@ -19,4 +19,18 @@ network.telegram.bot.name = <bot_name>
 #### Update dependencies
 ```bash
 ./gradlew dependencyUpdates
+```
+
+## Example
+
+You can add your commands in different class that implement ```CommandHandler()```
+```
+    init {
+        command("hello") {
+            sendMessage(
+                text = "Hello User!", 
+                botName = builder.botName
+            )
+        }  
+    } 
 ```
