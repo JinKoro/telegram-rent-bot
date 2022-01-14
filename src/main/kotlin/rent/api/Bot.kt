@@ -6,6 +6,7 @@ import infrastructure.bot.CommandHandler
 import infrastructure.bot.Rent
 import kotlinx.coroutines.launch
 import rent.infrastructure.extensions.commands.sendApartment
+import rent.infrastructure.extensions.commands.sendMessage
 
 class Bot @Inject constructor(
     @Rent private val builder: Builder,
@@ -14,8 +15,17 @@ class Bot @Inject constructor(
     init {
         command("start") {
             launch {
-                sendApartment(builder.botName)
+                sendApartment(
+                    botName = builder.botName
+                )
             }
+        }
+
+        command("hello") {
+            sendMessage(
+                text = "Hello! I'm bot.",
+                botName = builder.botName
+            )
         }
     }
 }

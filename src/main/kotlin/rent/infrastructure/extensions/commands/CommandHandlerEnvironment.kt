@@ -16,9 +16,9 @@ import rent.parsing.parser.RealtParser
 private const val POST_DELAY = 3000L
 private const val RESTART_DELAY = 10000L
 
-suspend fun CommandHandlerEnvironment.sendMessage(
-    botName: String,
+fun CommandHandlerEnvironment.sendMessage(
     text: String,
+    botName: String,
     parseMode: ParseMode = ParseMode.MARKDOWN
 ) {
     bot.sendMessage(
@@ -47,7 +47,7 @@ suspend fun CommandHandlerEnvironment.sendApartment(
                     .flatten()
                     .sortedBy { it.announcement.updatedAt }
                     .forEach { apartment ->
-                        sendMessage(botName, apartment.toString(), parseMode)
+                        sendMessage(apartment.toString(), botName, parseMode)
                         delay(POST_DELAY)
                     }
                 delay(RESTART_DELAY)

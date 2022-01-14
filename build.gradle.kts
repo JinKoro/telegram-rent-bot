@@ -3,7 +3,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt as Detekt
 
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version deps.versions.kotlin
 
     alias(deps.plugins.detekt)
     alias(deps.plugins.kotlin.serialization)
@@ -35,8 +35,6 @@ dependencies {
     implementation(deps.java.json)
     implementation(deps.bundles.ktor)
     implementation(deps.telegram.bot)
-    implementation(deps.kotlin.serialization)
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 detekt {
