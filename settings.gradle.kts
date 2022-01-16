@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "telegram.rent.bot"
+rootProject.name = "telegram.telegram.rent.bot"
 enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {

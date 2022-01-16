@@ -2,20 +2,16 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt as Detekt
 
+group = "telegram.telegram.rent.bot.rent.bot"
+version = "1.0"
+
 plugins {
     kotlin("jvm") version deps.versions.kotlin
-
+    java
+    application
     alias(deps.plugins.detekt)
     alias(deps.plugins.kotlin.serialization)
     alias(deps.plugins.update.dependencies)
-}
-
-group = "telegram.rent.bot"
-version = "1.0"
-
-repositories {
-    mavenCentral()
-    maven(url = "https://jitpack.io")
 }
 
 buildscript {
@@ -26,6 +22,15 @@ buildscript {
     dependencies {
         classpath(deps.update.dependencies)
     }
+}
+
+application {
+    mainClass.set("telegram.rent.bot.entrypoint.MainKt")
+}
+
+repositories {
+    mavenCentral()
+    maven(url = "https://jitpack.io")
 }
 
 dependencies {
@@ -47,34 +52,21 @@ detekt {
 }
 
 tasks.withType<Detekt>().configureEach {
-    reports {
-        xml.required.set(true)
-        html.required.set(false)
-        txt.required.set(false)
-        sarif.required.set(false)
-    }
+    reports.xml.required.set(true)
+    reports.html.required.set(false)
+    reports.txt.required.set(false)
+    reports.sarif.required.set(false)
 }
 
 tasks.withType<DependencyUpdatesTask> {
-    outputFormatter = "json"
-    outputDir = "build/dependencyUpdates"
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "15"
-        freeCompilerArgs = listOf(
-            "-Xuse-experimental=io.ktor.locations.KtorExperimentalLocationsAPI",
-            "-Xuse-experimental=io.ktor.util.KtorExperimentalAPI",
-            "-Xuse-experimental=kotlin.ExperimentalStdlibApi",
-            "-Xuse-experimental=kotlinx.serialization.InternalSerializationApi",
-            "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
-            "-Xuse-experimental=kotlin.time.ExperimentalTime",
-            "-Xopt-in=kotlin.RequiresOptIn"
-        )
-    }
+    outputFormatter = "xml"
+    outputDir = "build/reports/dependencyUpdates"
+    reportfileName = "dependencies"
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "15"
+    kotlinOptions.freeCompilerArgs = listOf(
+        "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
+    )
 }
