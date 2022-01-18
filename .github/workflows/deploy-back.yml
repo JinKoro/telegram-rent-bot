@@ -25,8 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Copy
-        with:
-          command: scp -3 /build/libs/telegram.rent.bot-1.0.jar ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }}:/home/jin/telegram-bot.jar
+        run: scp -3 /build/libs/telegram.rent.bot-1.0.jar ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }}:/home/jin/telegram-bot.jar
       - name: Deploy
         uses: garygrossgarten/github-action-ssh@release
         with:
