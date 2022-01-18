@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - '**.md'
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Runner Repository Downloads
@@ -18,11 +18,17 @@ jobs:
         with:
           java-version: '15'
           distribution: 'adopt'
-      - name: deploy
+      - name: Build Fat Application Jar
+        run: ./gradlew --no-daemon jar
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
         uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.HOST_BOT }}
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
-          command: ./gradlew jar && scp telegram.rent.bot-1.0.jar ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }}:/home/deploy/telegram-bot.jar && ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }} 'java -cp app.jar'
+          command: scp telegram.rent.bot-1.0.jar ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }}:/home/deploy/telegram-bot.jar && ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }} 'java -cp app.jar'
