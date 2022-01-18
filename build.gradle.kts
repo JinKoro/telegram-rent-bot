@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt as Detekt
 
-group = "telegram.telegram.rent.bot.rent.bot"
+group = "telegram.rent.bot"
 version = "1.0"
 
 plugins {
@@ -69,4 +69,14 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.freeCompilerArgs = listOf(
         "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
     )
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "///MainKt"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absoluteFile))
+    }
 }

@@ -1,0 +1,34 @@
+name: deploy-telegram-bot
+
+on:
+  push:
+    branches:
+      - master
+      - deploy
+    paths-ignore:
+      - '**.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Runner Repository Downloads
+        uses: actions/checkout@v2
+      - name: Set Up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '15'
+          distribution: 'adopt'
+      - name: Build Application
+        run: ./gradlew --no-daemon classes processResources compileKotlin compileJava
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.HOST_BOT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+          command: ./gradlew jar && scp telegram.rent.bot-1.0.jar ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }}:/home/deploy/telegram-bot.jar && ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.HOST_BOT }} 'java -cp app.jar'
