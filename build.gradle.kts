@@ -73,7 +73,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "///MainKt"
+        attributes["Main-Class"] = "telegram.rent.bot.entrypoint.MainKt"
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     configurations["compileClasspath"].forEach { file: File ->
