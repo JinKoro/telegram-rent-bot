@@ -19,7 +19,9 @@ jobs:
           java-version: '15'
           distribution: 'adopt'
       - name: Build Fat Application Jar
-        run: ./gradlew --no-daemon jar
+        run: |
+          ./gradlew --no-daemon jar
+          ls
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
