@@ -65,7 +65,7 @@ tasks.withType<DependencyUpdatesTask> {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "15"
+    kotlinOptions.jvmTarget = "17"
     kotlinOptions.freeCompilerArgs = listOf(
         "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
     )
