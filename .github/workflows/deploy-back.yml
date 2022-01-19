@@ -23,7 +23,7 @@ jobs:
           distribution: 'adopt'
       - name: Build Fat Application Jar
         run: |
-          ./graldew build --no-daemon
+          ./gradlew build --no-daemon
           ./gradlew --no-daemon jar -Dtelegram.rent.bot.token=${{ secrets.RENT_BOT_TOKEN }} -Dtelegram.rent.bot.name=${{ secrets.RENT_BOT_NAME }}
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
