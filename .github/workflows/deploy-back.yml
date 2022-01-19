@@ -9,7 +9,7 @@ on:
       - '**.md'
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Runner Repository Downloads
         uses: actions/checkout@v2
@@ -29,17 +29,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
       - name: Run App
         run: java -jar /home/jin/telegram-bot.jar
-#  deploy:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Deploy
-#        uses: garygrossgarten/github-action-ssh@release
-#        with:
-#          host: ${{ secrets.HOST_BOT }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-#          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-#          command: java -jar /home/jin/telegram-bot.jar
