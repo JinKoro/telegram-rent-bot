@@ -2,6 +2,8 @@ name: build-telegram-bot
 
 on:
   push:
+    branches-ignore:
+      - deploy
     paths-ignore:
       - '**.md'
 jobs:

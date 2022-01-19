@@ -2,6 +2,8 @@ name: reviewdog-telegram-bot
 
 on:
   pull_request:
+    branches-ignore:
+      - deploy
     paths-ignore:
       - '**.md'
 jobs:

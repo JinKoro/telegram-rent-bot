@@ -9,7 +9,7 @@ on:
       - '**.md'
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Runner Repository Downloads
         uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build Fat Application Jar
-        run: ./gradlew --no-daemon jar
+        run: ./gradlew --no-daemon jar -Dtelegram.rent.bot.token=${{ secrets.RENT_BOT_TOKEN }} -Dtelegram.rent.bot.name=${{ secrets.RENT_BOT_NAME }}
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
@@ -28,16 +28,18 @@ jobs:
           host: ${{ secrets.HOST_BOT }}
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          host: ${{ secrets.HOST_BOT }}
-          username: ${{ secrets.SSH_USERNAME }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
-          command: java -jar /home/jin/telegram-bot.jar
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Run App
+        run: java -jar /home/jin/telegram-bot.jar
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Deploy
+#        uses: garygrossgarten/github-action-ssh@release
+#        with:
+#          host: ${{ secrets.HOST_BOT }}
+#          username: ${{ secrets.SSH_USERNAME }}
+#          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+#          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+#          command: java -jar /home/jin/telegram-bot.jar
