@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build Fat Application Jar
-        run: ./gradlew jar --no-daemon
+        run: ./gradlew jar
         env:
           TELEGRAM__RENT__BOT__TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
           TELEGRAM__RENT__CHANNELS: ${{ secrets.RENT_CHANNELS }}
