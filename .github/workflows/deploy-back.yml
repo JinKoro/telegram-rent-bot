@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_RENT_BOT_TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
-      TELEGRAM_RENT_BOT_NAME: ${{ secrets.RENT_BOT_NAME }}
+      TELEGRAM_RENT_CHANNELS: ${{ secrets.RENT_CHANNELS }}
     steps:
       - name: Runner Repository Downloads
         uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
       - name: Build Fat Application Jar
         run: |
           ./gradlew build --no-daemon
-          ./gradlew --no-daemon jar -Dtelegram.rent.bot.token=${{ secrets.RENT_BOT_TOKEN }} -Dtelegram.rent.bot.name=${{ secrets.RENT_BOT_NAME }}
+          ./gradlew --no-daemon jar
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
@@ -36,7 +36,7 @@ jobs:
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
 #  deploy:
 #    needs: build
-#    runs-on: self-hosted
+#    runs-on: ubuntu-latest
 #    steps:
 #      - name: Run App
 #        run: java -jar /home/jin/telegram-bot.jar
