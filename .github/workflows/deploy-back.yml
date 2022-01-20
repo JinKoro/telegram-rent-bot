@@ -34,6 +34,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          rmRemote: true
 #  deploy:
 #    needs: build
 #    runs-on: ubuntu-latest
