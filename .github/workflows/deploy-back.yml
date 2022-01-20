@@ -24,7 +24,7 @@ jobs:
       - name: Build Application
         run: ./gradlew build --no-daemon
       - name: Build Fat Application Jar
-        run: ./graldew jar
+        run: ./gradlew jar
   deploy:
     needs: build
     runs-on: ubuntu-latest

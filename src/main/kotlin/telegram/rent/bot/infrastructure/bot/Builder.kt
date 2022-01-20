@@ -8,7 +8,7 @@ data class Builder(
     val channels: List<ChannelName>,
     val token: String,
     val dispatcher: Dispatcher,
-    val logLevel: LogLevel = LogLevel.Error
+    val logLevel: LogLevel = LogLevel.All()
 ) {
     val commands: MutableList<Command> = mutableListOf()
 
