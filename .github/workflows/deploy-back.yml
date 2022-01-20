@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - '**.md'
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_RENT_BOT_TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
@@ -25,10 +25,6 @@ jobs:
         run: ./gradlew build --no-daemon
       - name: Build Fat Application Jar
         run: ./gradlew jar
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
