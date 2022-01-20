@@ -9,13 +9,10 @@ on:
       - '**.md'
 jobs:
   deploy:
-    permissions:
-      contents: read
-      packages: write
     runs-on: ubuntu-latest
     env:
-      TELEGRAM_RENT_BOT_TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
-      TELEGRAM_RENT_CHANNELS: ${{ secrets.RENT_CHANNELS }}
+      TELEGRAM__RENT__BOT__TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
+      TELEGRAM__RENT__CHANNELS: ${{ secrets.RENT_CHANNELS }}
     steps:
       - name: Runner Repository Downloads
         uses: actions/checkout@v2
@@ -26,9 +23,6 @@ jobs:
           distribution: 'adopt'
       - name: Build Fat Application Jar
         run: ./gradlew jar --no-daemon
-        env:
-          TELEGRAM_RENT_BOT_TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
-          TELEGRAM_RENT_CHANNELS: ${{ secrets.RENT_CHANNELS }}
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
         with:
