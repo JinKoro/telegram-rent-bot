@@ -11,8 +11,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      TELEGRAM__RENT__BOT__TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
-      TELEGRAM__RENT__CHANNELS: ${{ secrets.RENT_CHANNELS }}
+      TELEGRAM__RENT__BOT__TOKEN: ${{secrets.RENT_BOT_TOKEN}}
+      TELEGRAM__RENT__CHANNELS: ${{secrets.RENT_CHANNELS}}
     steps:
       - name: Runner Repository Downloads
         uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build Fat Application Jar
-        run: ./gradlew jar
+        run: ./gradlew jar -Dtelegram.rent.bot.token=${{secrets.RENT_BOT_TOKEN}} -Dtelegram.rent.channels=${{secrets.RENT_CHANNELS}}
         env:
           TELEGRAM__RENT__BOT__TOKEN: ${{ secrets.RENT_BOT_TOKEN }}
           TELEGRAM__RENT__CHANNELS: ${{ secrets.RENT_CHANNELS }}
