@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} [%thread] %X %-5level %c{2} - %msg %throwable %n"/>
+        </Console>
+        <Async name="Async">
+            <AppenderRef ref="Console"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Root level="TRACE">
+            <AppenderRef ref="Async"/>
+        </Root>
+        <logger name="kotlin.telegram.rent.bot.infrastructure.configuration.ConfigurationKt" level = "ALL" additivity="true"/>
+    </Loggers>
+</configuration>
