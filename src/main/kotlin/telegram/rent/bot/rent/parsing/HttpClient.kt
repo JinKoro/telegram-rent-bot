@@ -12,8 +12,6 @@ open class HttpClient {
         get() = HttpClient(CIO) {
             install(JsonFeature) {
                 accept(ContentType.Application.Json)
-                accept(ContentType("application", "json-rpc"))
-                accept(ContentType("application", "x-javascript"))
                 serializer = KotlinxSerializer(json)
             }
     }

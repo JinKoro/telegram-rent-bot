@@ -17,6 +17,7 @@ fun main() {
         configuration.rent.bot.token,
         dispatcher
     )
+
     val injector = Guice.createInjector(object : AbstractModule() {
         override fun configure() {
             bind(Config::class.java).toInstance(configuration)
@@ -26,6 +27,5 @@ fun main() {
     })
     injector.createChildInjector(RentModule())
 
-    val rentBot = rentBuilder.build()
-    rentBot.startPolling()
+    rentBuilder.build().startPolling()
 }

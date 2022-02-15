@@ -23,15 +23,13 @@ jobs:
           distribution: 'adopt'
       - name: Build Fat Application Jar
         run: ./gradlew processResources compileKotlin compileJava classes jar
-      - name: RUN
-        run: java -jar build/libs/telegram.rent.bot-1.0.jar
-#      - name: Copy single file to remote
-#        uses: garygrossgarten/github-action-scp@release
-#        with:
-#          local: build/libs/telegram.rent.bot-1.0.jar
-#          remote: /home/jin/telegram-bot.jar
-#          host: ${{ secrets.HOST_BOT }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-#          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-#          rmRemote: true
+      - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/libs/telegram.rent.bot-1.0.jar
+          remote: /home/jin/telegram-bot.jar
+          host: ${{ secrets.HOST_BOT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          rmRemote: true
