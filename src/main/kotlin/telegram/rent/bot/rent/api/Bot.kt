@@ -19,9 +19,9 @@ class Bot @Inject constructor(
                     sendApartment(
                         channels = builder.channels
                     )
-                } catch (e: Exception) {
+                } catch (ignore: Exception) {
                     sendMessage(
-                        text = e.message.toString()
+                        text = ignore.message.toString()
                     )
                 }
             }
