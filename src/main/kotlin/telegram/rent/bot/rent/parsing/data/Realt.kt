@@ -74,7 +74,8 @@ data class Realt(val data: Data) {
             @Transient
             private val price = priceString.let { price ->
                 val newPrice = price.replace("\\u00a0".toRegex(), "")
-                val (amt, cur) = Regex("([0-9| ]{1,6})([$]|€|руб)").find(newPrice)!!.destructured
+                val (amt, cur) = Regex("([0-9| ]{1,6})([$]|€|руб)").find(newPrice)?.destructured
+                    ?: return@let Apartment.Price(0.0, Apartment.Price.Currency.BYN)
                 val amount = amt.toDouble()
                 val currency = Apartment.Price.Currency.values().single { it.symbols.contains(cur) }
 

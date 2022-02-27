@@ -51,6 +51,10 @@ data class Apartment(
         val amount: Double,
         val currency: Currency
     ) {
+        override fun toString(): String {
+            if (amount == 0.0) return "Цена не указана"
+            return super.toString()
+        }
         enum class Currency(val symbols: List<String>) {
             USD(listOf("$")),
             BYN(listOf("Br", "руб")),

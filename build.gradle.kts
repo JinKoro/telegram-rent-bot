@@ -1,8 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt as Detekt
+import java.util.Properties
 
-group = "telegram.telegram.rent.bot.rent.bot"
+group = "telegram.rent.bot"
 version = "1.0"
 
 plugins {
@@ -12,20 +13,6 @@ plugins {
     alias(deps.plugins.detekt)
     alias(deps.plugins.kotlin.serialization)
     alias(deps.plugins.update.dependencies)
-}
-
-buildscript {
-    repositories {
-        maven("https://plugins.gradle.org/m2/")
-    }
-
-    dependencies {
-        classpath(deps.update.dependencies)
-    }
-}
-
-application {
-    mainClass.set("telegram.rent.bot.entrypoint.MainKt")
 }
 
 repositories {
@@ -40,6 +27,9 @@ dependencies {
     implementation(deps.java.json)
     implementation(deps.bundles.ktor)
     implementation(deps.telegram.bot)
+    runtimeOnly(deps.logging)
+    implementation(deps.slf4j)
+
 }
 
 detekt {
@@ -65,8 +55,44 @@ tasks.withType<DependencyUpdatesTask> {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "15"
+    kotlinOptions.jvmTarget = "17"
     kotlinOptions.freeCompilerArgs = listOf(
         "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
     )
+}
+
+tasks.withType<JavaExec> {
+    dependsOn(":loadFileConfiguration")
+    doFirst {
+        System.getProperties().forEach { (k, v) ->
+            systemProperty(k.toString(), v.toString())
+        }
+    }
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "telegram.rent.bot.entrypoint.MainKt"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absoluteFile))
+    }
+}
+
+tasks.register("loadFileConfiguration") {
+    group = "configuration"
+    doLast {
+        val properties = Properties()
+        val localPropertiesFile = file("$projectDir/src/main/resources/local.properties")
+
+        if (localPropertiesFile.exists()) {
+            logger.lifecycle("Loading ${localPropertiesFile.path}")
+            properties.load(localPropertiesFile.readText().byteInputStream())
+        }
+
+        for ((k, v) in properties.entries) {
+            System.setProperty(k.toString(), v.toString())
+        }
+    }
 }

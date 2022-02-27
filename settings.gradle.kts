@@ -1,16 +1,17 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "telegram.telegram.rent.bot"
+rootProject.name = "telegram.rent.bot"
 enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {
 
     versionCatalogs {
         create("deps") {
+            version("logging", "2.16.0")
             version("ktor", "1.6.7")
             version("kotlin", "1.6.10")
-            version("guice", "5.0.1")
-            version("jitpack", "1.1")
+            version("guice", "5.1.0")
+            version("jitpack", "2.0")
             version("detekt", "1.19.0")
             version("hoplite", "1.4.16")
             version("test_logger", "3.0.0")
@@ -29,7 +30,8 @@ dependencyResolutionManagement {
             alias("jitpack").to("com.github.jitpack", "gradle-simple").versionRef("jitpack")
             alias("guice").to("com.google.inject", "guice").versionRef("guice")
             alias("java_json").to("org.json", "json").versionRef("java_json")
-
+            alias("logging").to("org.apache.logging.log4j", "log4j-core").versionRef("logging")
+            alias("slf4j").to("org.apache.logging.log4j", "log4j-slf4j-impl").versionRef("logging")
             alias("detekt").toPluginId("io.gitlab.arturbosch.detekt").versionRef("detekt")
             alias("update_dependencies").toPluginId("com.github.ben-manes.versions").versionRef("update_dependencies")
             alias("kotlin_serialization").toPluginId("org.jetbrains.kotlin.plugin.serialization").versionRef("kotlin")

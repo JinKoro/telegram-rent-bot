@@ -15,11 +15,19 @@ class Bot @Inject constructor(
     init {
         command("start") {
             launch {
-                sendApartment(
-                    channels = builder.channels
-                )
+                try {
+                    sendApartment(
+                        channels = builder.channels
+                    )
+                } catch (ignore: Exception) {
+                    sendMessage(
+                        text = ignore.message.toString()
+                    )
+                }
             }
         }
+
+        command("stop") {}
 
         command("hello") {
             sendMessage(

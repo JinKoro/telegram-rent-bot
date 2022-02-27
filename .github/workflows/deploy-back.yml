@@ -1,0 +1,32 @@
+name: deploy-telegram-bot
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths-ignore:
+      - '**.md'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Runner Repository Downloads
+        uses: actions/checkout@v2
+      - name: Set Up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Build Fat Application Jar
+        run: ./gradlew processResources compileKotlin compileJava classes jar
+      - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/libs/telegram.rent.bot-1.0.jar
+          remote: /home/jin/telegram-bot.jar
+          host: ${{ secrets.HOST_BOT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          rmRemote: true
