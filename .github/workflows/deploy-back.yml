@@ -4,15 +4,12 @@ on:
   push:
     branches:
       - master
-      - deploy
+      - main
     paths-ignore:
       - '**.md'
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      TELEGRAM__RENT__BOT__TOKEN: ${{secrets.RENT_BOT_TOKEN}}
-      TELEGRAM__RENT__CHANNELS: ${{secrets.RENT_CHANNELS}}
     steps:
       - name: Runner Repository Downloads
         uses: actions/checkout@v2

@@ -11,12 +11,17 @@ private const val POST_DELAY = 3000L
 
 fun CommandHandlerEnvironment.sendMessage(
     text: String,
-    channels: List<ChannelName>,
+    channels: List<ChannelName> = emptyList(),
     parseMode: ParseMode = ParseMode.MARKDOWN
 ) {
     channels.forEach { name ->
+        val chatId = if(channels.isEmpty())
+            ChatId.fromId(message.chat.id)
+        else
+            ChatId.fromChannelUsername(name)
+
         bot.sendMessage(
-            chatId = ChatId.fromChannelUsername(name),
+            chatId = chatId,
             text = text,
             parseMode = parseMode
         )

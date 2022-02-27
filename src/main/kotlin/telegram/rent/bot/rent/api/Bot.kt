@@ -15,9 +15,15 @@ class Bot @Inject constructor(
     init {
         command("start") {
             launch {
-                sendApartment(
-                    channels = builder.channels
-                )
+                try {
+                    sendApartment(
+                        channels = builder.channels
+                    )
+                } catch (e: Exception) {
+                    sendMessage(
+                        text = e.message.toString()
+                    )
+                }
             }
         }
 
