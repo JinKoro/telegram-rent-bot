@@ -18,19 +18,21 @@ class OnlinerParser : Parser, HttpClient() {
         val document = client.get<Onliner>(Link.ONLINER_MINSK)
 
         document.apartments
-            .asReversed()
             .forEach { onlinerApartment ->
                 try {
                     val apartment = onlinerApartment.transform()
-                    if (apartment.announcement.updatedAt <= lastUpdated) {
-                        return emptyList()
+                    if (apartment.announcement.updatedAt > lastUpdated) {
+                        newApartments.add(apartment)
                     }
-                    newApartments.add(apartment)
                 } catch (logging: Exception) {
                     logger.debug(logging.message)
                 }
             }
-            .also { lastUpdated = newApartments.first().announcement.updatedAt }
+            .also {
+                if (newApartments.isNotEmpty()) {
+                    lastUpdated = newApartments.maxOf { it.announcement.updatedAt }
+                }
+            }
 
         return newApartments
     }
