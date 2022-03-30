@@ -18,19 +18,21 @@ class KufarParser : Parser, HttpClient() {
         val document = client.get<Kufar>(Link.KUFAR_MINSK)
 
         document.apartments
-            .asReversed()
             .forEach { kufarApartment ->
                 try {
                     val apartment = kufarApartment.transform()
-                    if (apartment.announcement.updatedAt <= lastUpdated) {
-                        return emptyList()
+                    if (apartment.announcement.updatedAt > lastUpdated) {
+                        newApartments.add(apartment)
                     }
-                    newApartments.add(apartment)
                 } catch (logging: Exception) {
                     logger.debug(logging.message)
                 }
             }
-            .also { lastUpdated = newApartments.last().announcement.updatedAt }
+            .also {
+                if (newApartments.isNotEmpty()) {
+                    lastUpdated = newApartments.maxOf { it.announcement.updatedAt }
+                }
+            }
 
         return newApartments
     }
