@@ -30,3 +30,13 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           rmRemote: true
+      - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: Dockerfile
+          remote: /home/jin/Dockerfile
+          host: ${{ secrets.HOST_BOT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          rmRemote: true
