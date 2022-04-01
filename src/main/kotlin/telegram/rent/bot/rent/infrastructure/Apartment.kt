@@ -15,7 +15,7 @@ data class Apartment(
 ) {
     override fun toString(): String {
         return """
-        🐳 *${type.typeName} за ${price.amount.toInt()}${price.currency.symbols.first()} 💸*
+        🐳 *${type.typeName} за $price 💸*
         
         🏠 Место: *${location.address}*        
         ⌚ Время: *${announcement.updatedAt.toTimeFormat()}*        
@@ -53,7 +53,7 @@ data class Apartment(
     ) {
         override fun toString(): String {
             if (amount == 0.0) return "Цена не указана"
-            return super.toString()
+            return "${amount.toInt()}${currency.symbols.first()}"
         }
         enum class Currency(val symbols: List<String>) {
             USD(listOf("$")),

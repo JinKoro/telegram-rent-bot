@@ -11,7 +11,7 @@ import telegram.rent.bot.rent.parsing.data.Onliner
 
 class OnlinerParser : Parser, HttpClient() {
     private val logger = LoggerFactory.getLogger(this::class.java)
-    private var lastUpdated: LocalDateTime = LocalDateTime.MIN
+    private var lastUpdated: LocalDateTime = LocalDateTime.now()
 
     override suspend fun parse(): List<Apartment> {
         val newApartments = mutableListOf<Apartment>()
