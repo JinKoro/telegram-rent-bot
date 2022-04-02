@@ -14,7 +14,7 @@ import telegram.rent.bot.rent.parsing.parser.OnlinerParser
 import telegram.rent.bot.rent.parsing.parser.RealtParser
 
 object Worker {
-    private const val RESTART_DELAY = 10000L
+    private const val RESTART_DELAY = 60000L
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val parsers = listOf<Parser>(
         KufarParser(),
