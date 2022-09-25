@@ -27,8 +27,7 @@ jobs:
           remote: /root/telegram-bot.jar
           host: ${{ secrets.HOST_BOT }}
           username: ${{ secrets.SSH_USERNAME }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSPHRASE }}
           rmRemote: true
       - name: Copy single file to remote
         uses: garygrossgarten/github-action-scp@release
@@ -37,6 +36,5 @@ jobs:
           remote: /root/Dockerfile
           host: ${{ secrets.HOST_BOT }}
           username: ${{ secrets.SSH_USERNAME }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSPHRASE }}
           rmRemote: true
