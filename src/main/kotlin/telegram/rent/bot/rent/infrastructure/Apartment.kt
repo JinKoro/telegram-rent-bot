@@ -50,16 +50,38 @@ data class Apartment(
     data class Price(
         val amount: Double,
         val currency: Currency
-    ) {
+    ): Comparable<Price> {
         override fun toString(): String {
-            if (amount == 0.0) return "Цена не указана"
+            if (amount == 0.0) return "0$. Цена не указана"
             return "${amount.toInt()}${currency.symbols.first()}"
         }
+
         enum class Currency(val symbols: List<String>) {
             USD(listOf("$")),
             BYN(listOf("Br", "руб")),
             EUR(listOf("€")),
             RUB(listOf("₽"))
+        }
+
+        override fun compareTo(other: Price): Int {
+            val otherAmount = when (other.currency) {
+                Currency.USD -> other.amount
+                Currency.BYN -> other.amount / BYN_USD
+                Currency.RUB -> other.amount / RUB_USD
+                Currency.EUR -> other.amount
+            }
+            return when (currency) {
+                Currency.USD -> compareValues(amount, otherAmount)
+                Currency.BYN -> compareValues((amount / BYN_USD), otherAmount)
+                Currency.EUR -> compareValues(amount, otherAmount)
+                Currency.RUB -> compareValues(amount / RUB_USD, otherAmount)
+            }
+        }
+
+        companion object {
+            private const val BYN_USD = 2.5
+            private const val RUB_USD = 57.9
+            val maxPrice = Price(350.0, Currency.USD)
         }
     }
 

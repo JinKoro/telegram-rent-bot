@@ -15,21 +15,35 @@ class Bot @Inject constructor(
     init {
         command("start") {
             launch {
-                try {
-                    sendApartment(
-                        channels = builder.channels
-                    )
-                } catch (ignore: Exception) {
-                    sendMessage(
-                        text = ignore.message.toString()
-                    )
-                }
+                sendApartment(
+                    channels = builder.channels
+                )
             }
         }
 
         command("hello") {
             sendMessage(
                 text = "Hello! I'm bot.",
+                channels = builder.channels
+            )
+        }
+
+        command("sanya") {
+            sendMessage(
+                text = "Саня педик! \uD83D\uDC33",
+                channels = builder.channels
+            )
+        }
+
+        command("dimon") {
+            sendMessage(
+                text = """
+                    Призывнику Дминтрию Скребцу!
+                    Вам надлежит к 9 часам 27.09.2022 
+                    прибыть в военный коммисариат вашего города.
+                    
+                    Военный коммисар Коротин Д.C
+                """.trimIndent(),
                 channels = builder.channels
             )
         }

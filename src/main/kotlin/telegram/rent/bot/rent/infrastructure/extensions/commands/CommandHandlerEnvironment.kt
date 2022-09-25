@@ -32,8 +32,13 @@ suspend fun CommandHandlerEnvironment.sendApartment(
     channels: List<ChannelName>,
     parseMode: ParseMode = ParseMode.MARKDOWN
 ) {
-    Worker.start { apartment ->
-        sendMessage(apartment.toString(), channels, parseMode)
-        delay(POST_DELAY)
-    }
+    Worker.start(
+        { apartment ->
+            sendMessage(apartment.toString(), channels, parseMode)
+            delay(POST_DELAY)
+        },
+        { exception ->
+            sendMessage(exception, emptyList(), parseMode)
+        }
+    )
 }
