@@ -24,7 +24,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: build/libs/telegram.rent.bot-1.0.jar
-          remote: /home/jin/telegram-bot.jar
+          remote: /root/telegram-bot.jar
           host: ${{ secrets.HOST_BOT }}
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
@@ -34,7 +34,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: Dockerfile
-          remote: /home/jin/Dockerfile
+          remote: /root/Dockerfile
           host: ${{ secrets.HOST_BOT }}
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}

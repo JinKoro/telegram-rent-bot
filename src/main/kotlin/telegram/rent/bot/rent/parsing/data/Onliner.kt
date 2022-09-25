@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonElement
+import telegram.rent.bot.infrastructure.date.LocalDateTimeSerializer
 import telegram.rent.bot.rent.infrastructure.Apartment
 import telegram.rent.bot.rent.infrastructure.MapLink
 import telegram.rent.bot.rent.infrastructure.Site
@@ -25,7 +26,8 @@ data class Onliner(
         @SerialName("photo")
         private val photoLink: String,
         @SerialName("last_time_up")
-        private val lastTimeUp: String,
+        @Serializable(LocalDateTimeSerializer::class)
+        private val lastTimeUp: LocalDateTime,
         private val url: String
     ) {
 
@@ -40,7 +42,7 @@ data class Onliner(
         @Transient
         private val announcement = Apartment.Announcement(
             url = url,
-            updatedAt = LocalDateTime.parse(lastTimeUp.dropLast(5)),
+            updatedAt = lastTimeUp,
             site = Site.ONLINER
         )
 

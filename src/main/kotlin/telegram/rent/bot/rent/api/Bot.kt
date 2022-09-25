@@ -27,8 +27,6 @@ class Bot @Inject constructor(
             }
         }
 
-        command("stop") {}
-
         command("hello") {
             sendMessage(
                 text = "Hello! I'm bot.",

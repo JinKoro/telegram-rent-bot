@@ -5,7 +5,7 @@ import com.sksamuel.hoplite.PropertySource
 
 object Configuration {
     fun load(): Config {
-        return ConfigLoader.Builder()
+        return ConfigLoader.builder()
             .addSource(PropertySource.resource("/local.properties", optional = true))
             .addSource(PropertySource.environment(useUnderscoresAsSeparator = true, allowUppercaseNames = true))
             .build()

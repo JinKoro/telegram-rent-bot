@@ -76,7 +76,7 @@ data class Kufar(
         @Transient
         private val announcement = Apartment.Announcement(
             url = url,
-            updatedAt = LocalDateTime.parse(updatedAt.dropLast(1)),
+            updatedAt = LocalDateTime.parse(updatedAt.dropLast(1)).plusHours(3),
             site = Site.KUFAR
         )
 
