@@ -28,7 +28,7 @@ fun CommandHandlerEnvironment.sendMessage(
     }
 }
 
-suspend fun CommandHandlerEnvironment.sendApartment(
+fun CommandHandlerEnvironment.sendApartment(
     channels: List<ChannelName>,
     parseMode: ParseMode = ParseMode.MARKDOWN
 ) {

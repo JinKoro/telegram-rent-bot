@@ -1,7 +1,6 @@
 package telegram.rent.bot.rent.api
 
 import com.google.inject.Inject
-import kotlinx.coroutines.launch
 import telegram.rent.bot.infrastructure.bot.Builder
 import telegram.rent.bot.infrastructure.bot.CommandHandler
 import telegram.rent.bot.infrastructure.bot.Rent
@@ -14,11 +13,9 @@ class Bot @Inject constructor(
 
     init {
         command("start") {
-            launch {
-                sendApartment(
-                    channels = builder.channels
-                )
-            }
+            sendApartment(
+                channels = builder.channels
+            )
         }
 
         command("hello") {
