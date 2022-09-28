@@ -13,7 +13,6 @@ import telegram.rent.bot.rent.parsing.parser.OnlinerParser
 import telegram.rent.bot.rent.parsing.parser.RealtParser
 
 object Worker: CoroutineScope by CoroutineScope(Dispatchers.IO + SupervisorJob()) {
-    private val logger = LoggerFactory.getLogger(javaClass)
     private const val RESTART_DELAY = 60000L
     private val parsers = listOf<Parser>(
         KufarParser(),
