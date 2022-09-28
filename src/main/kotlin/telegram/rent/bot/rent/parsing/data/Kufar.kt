@@ -27,8 +27,6 @@ data class Kufar(
         private val url: String,
         @SerialName("ad_parameters")
         private val apartmentParameters: List<ApartmentParameter>,
-        @SerialName("currency")
-        private val currencyString: String,
         @SerialName("list_time")
         private val updatedAt: String,
         @SerialName("images")
@@ -91,14 +89,7 @@ data class Kufar(
         @Transient
         private val price = Apartment.Price(
             amount = amount / 100,
-            currency = when (currencyString) {
-                "USD" -> Apartment.Price.Currency.USD
-                "BYN" -> Apartment.Price.Currency.BYN
-                "BYR" -> Apartment.Price.Currency.BYN
-                "EUR" -> Apartment.Price.Currency.EUR
-                "RUB" -> Apartment.Price.Currency.RUB
-                else -> throw UnsupportedOperationException("Unknown currency symbol: $currencyString")
-            }
+            currency = Apartment.Price.Currency.USD
         )
 
         @Serializable
