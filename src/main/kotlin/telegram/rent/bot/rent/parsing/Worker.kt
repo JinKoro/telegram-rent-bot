@@ -22,7 +22,7 @@ object Worker: CoroutineScope by CoroutineScope(Dispatchers.IO + SupervisorJob()
     )
 
     fun start(body: suspend (Apartment) -> Unit, exception: (String) -> Unit) = launch {
-        logger.info("Start parsing...")
+        println("Start parsing...")
         while (isActive) {
             parsers
                 .map { parser ->
