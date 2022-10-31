@@ -6,7 +6,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.slf4j.LoggerFactory
 import telegram.rent.bot.rent.infrastructure.Apartment
 import telegram.rent.bot.rent.parsing.parser.KufarParser
 import telegram.rent.bot.rent.parsing.parser.OnlinerParser
@@ -27,7 +26,7 @@ object Worker: CoroutineScope by CoroutineScope(Dispatchers.IO + SupervisorJob()
                 .map { parser ->
                     try { parser.parse() } catch (ignore: Exception) {
                         exception(
-                            "Apartment parsing error with parser (${parser::class.simpleName}): " + ignore.message
+                            "Apartment parsing error with parser (${parser::class.simpleName}) : " + ignore.message
                         ); emptyList()
                     }
                 }
