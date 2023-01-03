@@ -81,7 +81,7 @@ data class Apartment(
         companion object {
             private const val BYN_USD = 2.5
             private const val RUB_USD = 57.9
-            val maxPrice = Price(350.0, Currency.USD)
+            val maxPrice = Price(450.0, Currency.USD)
         }
     }
 
