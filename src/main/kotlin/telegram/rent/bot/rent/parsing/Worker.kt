@@ -6,7 +6,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.slf4j.LoggerFactory
 import telegram.rent.bot.rent.infrastructure.Apartment
 import telegram.rent.bot.rent.parsing.parser.KufarParser
 import telegram.rent.bot.rent.parsing.parser.OnlinerParser
@@ -14,6 +13,7 @@ import telegram.rent.bot.rent.parsing.parser.RealtParser
 
 object Worker: CoroutineScope by CoroutineScope(Dispatchers.IO + SupervisorJob()) {
     private const val RESTART_DELAY = 60000L
+    private val rooms = listOf(Apartment.Type.STUDIO, Apartment.Type.ONE_ROOMS, Apartment.Type.TWO_ROOMS)
     private val parsers = listOf<Parser>(
         KufarParser(),
         RealtParser(),
@@ -32,7 +32,7 @@ object Worker: CoroutineScope by CoroutineScope(Dispatchers.IO + SupervisorJob()
                     }
                 }
                 .flatten()
-                .filter { it.type == Apartment.Type.TWO_ROOMS && it.price < Apartment.Price.maxPrice }
+                .filter { it.type in rooms && it.price < Apartment.Price.maxPrice }
                 .sortedBy { it.announcement.updatedAt }
                 .forEach { body(it) }
 

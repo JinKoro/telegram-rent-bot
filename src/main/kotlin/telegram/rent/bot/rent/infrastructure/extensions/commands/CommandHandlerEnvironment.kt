@@ -14,14 +14,16 @@ fun CommandHandlerEnvironment.sendMessage(
     channels: List<ChannelName> = emptyList(),
     parseMode: ParseMode = ParseMode.MARKDOWN
 ) {
-    channels.forEach { name ->
-        val chatId = if(channels.isEmpty())
-            ChatId.fromId(message.chat.id)
-        else
-            ChatId.fromChannelUsername(name)
-
+    if (channels.isEmpty()) {
         bot.sendMessage(
-            chatId = chatId,
+            chatId = ChatId.fromId(message.chat.id),
+            text = text,
+            parseMode = parseMode
+        )
+    }
+    channels.forEach { name ->
+        bot.sendMessage(
+            chatId = ChatId.fromChannelUsername(name),
             text = text,
             parseMode = parseMode
         )

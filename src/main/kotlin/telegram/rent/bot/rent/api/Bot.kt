@@ -12,7 +12,13 @@ class Bot @Inject constructor(
 ): CommandHandler(builder) {
 
     init {
+
+        command("live") {
+            sendMessage(text = "Live")
+        }
+
         command("start") {
+            sendMessage(text = "Start parsing")
             sendApartment(
                 channels = builder.channels
             )
