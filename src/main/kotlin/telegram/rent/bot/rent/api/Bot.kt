@@ -30,25 +30,5 @@ class Bot @Inject constructor(
                 channels = builder.channels
             )
         }
-
-        command("sanya") {
-            sendMessage(
-                text = "Саня педик! \uD83D\uDC33",
-                channels = builder.channels
-            )
-        }
-
-        command("dimon") {
-            sendMessage(
-                text = """
-                    Призывнику Дминтрию Скребцу!
-                    Вам надлежит к 9 часам 27.09.2022 
-                    прибыть в военный коммисариат вашего города.
-                    
-                    Военный коммисар Коротин Д.C
-                """.trimIndent(),
-                channels = builder.channels
-            )
-        }
     }
 }
